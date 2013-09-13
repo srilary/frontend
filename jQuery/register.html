@@ -1,0 +1,119 @@
+frontend
+========
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="jquery-1.7.2.min.js"></script>
+<style type="text/css">
+    .main{
+        width: 700px;
+        height:500px;
+        background-color: #2b99d0;
+
+    }
+    form{
+        width: 500px;
+        background-color: #ffffff;
+        margin: auto;
+        position: relative;
+        top: 100px;
+        height: 300px;
+        line-height: 50px;
+    }
+label{
+	display:inline-block;
+	width:120px;
+	height:30px;
+	line-height:30px;
+	color: #030000;
+	text-align:right;
+	font-size:18px;
+    margin-left: 70px;
+
+}
+
+input,label{
+    margin-top: 15px;
+}
+.cha{
+	margin-left:115px;
+	
+}
+span{
+	margin-left:15px;
+	display:inline-block;
+	width:140px;
+	height:30px;
+	line-height:40px;
+	color: #030000;
+	text-align:left;
+	font-size:18px;
+	
+}
+.btn{
+	border:none;
+	width:70px;
+	margin-left:100px;
+	height:30px;
+	background: #2b99d0;
+	font-size:18px;
+    color: #ffffff;
+    cursor: pointer;
+}
+.btn:hover{
+    background-color: #2687b6;
+}
+p{
+	margin-left:70px;
+	width:200px;
+	height:35px;
+	color:red;
+	font-size:20px;
+	display:none;
+}
+</style>
+</head>
+<body>
+<div class="main">
+    <form>
+        <label>姓&nbsp;&nbsp;&nbsp;&nbsp;名:</label><input type="text"/><br/>
+        <label>密&nbsp;&nbsp;&nbsp;&nbsp;码:</label><input type="password"/><br/>
+        <label>重复密码:</label><input type="password"/><br/>
+        <label>邮&nbsp;&nbsp;&nbsp;&nbsp;箱:</label><input type="text"/><br/>
+        <input class="cha" type="checkbox"/><span>同意条款</span><br/>
+        <input class="btn" type="button" value="注册"/>
+        <input  class="btn"  type="reset" value="取消"/>
+    </form>
+</div>
+<p>你输入的内容有误！</p>
+<script type="text/javascript">
+$("input[type=button]").click(
+		function(){
+			var nameinfo = $("input[type=text]")[0].value;
+			var emailinfo = $("input[type=text]")[1].value;
+			var passf = $("input[type=password]")[0].value;
+			var passs = $("input[type=password]")[1].value;
+			var regf = /^\w+\@[a-zA-Z0-9]+\.[a-zA-Z]{2,12}$/i;
+			var regs = /^[a-z0-9_-]{3,16}$/;
+			var namec = regs.test(nameinfo);
+			var emailc = regf.test(emailinfo);
+			var passc = regs.test(passf);			
+			var i=0;
+			if(passf==passs){
+				i=1;
+			}
+			if($("input[type=checkbox]").prop("checked")==true&&namec==true&&emailc==true&&passc==true&&i==1){
+				$.get("getinfo.php",{name:nameinfo,email:emailinfo,pass:passf},
+						function(msg){
+					alert(msg);
+				})
+			}else{
+//				$("p").slideDown("slow").delay(5000).slideUp("slow");
+                alert("你输入的内容有误");
+			}
+		});
+</script>
+</body>
+</html>
